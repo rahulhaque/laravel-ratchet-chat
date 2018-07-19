@@ -14,3 +14,7 @@ A simple real time chat app built with Laravel and Ratchet WebSocket server.
 
 - Start ratchet server with `php artisan ratchet:init`
 - Start app server with `php artisan serve`
+
+## Screenshots
+
+![Chatbox](https://github.com/rahulhaque/laravel-ratchet-chat/blob/master/public/screenshots/screenshot-1.png)
