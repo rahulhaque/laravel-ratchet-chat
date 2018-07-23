@@ -7,6 +7,8 @@ use Illuminate\Console\Command;
 use Ratchet\Http\HttpServer;
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
+use React\EventLoop\Factory as LoopFactory;
+use React\Socket\Server as Reactor;
 
 class StartRatchetServer extends Command
 {
@@ -43,7 +45,9 @@ class StartRatchetServer extends Command
     {
         $port = env('RATCHET_PORT') ? env('RATCHET_PORT') : 8090;
         echo "Ratchet server started on localhost:$port \n";
-        $ratchet = IoServer::factory(new HttpServer(new WsServer(new RatchetController())), $port);
-        $ratchet->run();
+        $loop = LoopFactory::create();
+        $socket = new Reactor($port, $loop);
+        $server = new IoServer(new HttpServer(new WsServer(new RatchetController($loop))), $socket, $loop);
+        $server->run();
     }
 }

@@ -72,6 +72,10 @@
             console.log(e);
             alert('Check if WebSocket server is running!');
         };
+        ws.onclose = function(e) {
+            console.log(e);
+            alert('Check if WebSocket server is running!');
+        };
         ws.onmessage = function (e) {
             let json = JSON.parse(e.data);
             switch (json.type) {

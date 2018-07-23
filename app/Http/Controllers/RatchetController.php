@@ -4,22 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Exception;
+use React\EventLoop\LoopInterface;
+use React\EventLoop\TimerInterface;
 use SplObjectStorage;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 
 class RatchetController extends Controller implements MessageComponentInterface
 {
-    protected $clients;
-    protected $users;
+    private $loop;
+    private $clients;
 
     /**
      * Store all the connected clients in php SplObjectStorage
      *
      * RatchetController constructor.
      */
-    public function __construct()
+    public function __construct(LoopInterface $loop)
     {
+        $this->loop = $loop;
         $this->clients = new SplObjectStorage;
     }
 
@@ -75,13 +78,14 @@ class RatchetController extends Controller implements MessageComponentInterface
                 $user_id = $data->user_id;
                 $user_name = $data->user_name;
                 $chat_msg = $data->chat_msg;
-                $response_from = "<span class='text-success'><b>$user_id. $user_name:</b> $chat_msg <span class='text-warning float-right'>".date('Y-m-d h:i a')."</span></span><br><br>";
-                $response_to = "<span class='text-info'><b>$user_id. $user_name</b>: $chat_msg <span class='text-warning float-right'>".date('Y-m-d h:i a')."</span></span><br><br>";
+                $response_from = "<span class='text-success'><b>$user_id. $user_name:</b> $chat_msg <span class='text-warning float-right'>" . date('Y-m-d h:i a') . "</span></span><br><br>";
+                $response_to = "<span class='text-info'><b>$user_id. $user_name</b>: $chat_msg <span class='text-warning float-right'>" . date('Y-m-d h:i a') . "</span></span><br><br>";
                 // Output
                 $from->send(json_encode([
                     "type" => $type,
                     "msg" => $response_from
                 ]));
+
                 foreach ($this->clients as $client) {
                     if ($from != $client) {
                         $client->send(json_encode([
