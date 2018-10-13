@@ -7,7 +7,7 @@ A simple real time chat app built with Laravel and Ratchet WebSocket server.
 ## Install Instruction
 
 - Download or clone the repository.
-- `cd` into the directory and run `composet install`
+- `cd` into the directory and run `composer install`
 - Run `php artisan key:generate` and `php artisan migrate`
 
 ## Run the App
