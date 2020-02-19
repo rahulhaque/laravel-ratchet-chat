@@ -52,6 +52,7 @@ class RatchetController extends Controller implements MessageComponentInterface
      */
     public function onClose(ConnectionInterface $conn)
     {
+        echo "Client left onClose " . $conn->resourceId . " \n";
         $this->clients->detach($conn);
         foreach ($this->clients as $client) {
             $client->send(json_encode([
@@ -115,6 +116,7 @@ class RatchetController extends Controller implements MessageComponentInterface
      */
     public function onError(ConnectionInterface $conn, Exception $e)
     {
+        echo "Client left onError " . $conn->resourceId . " \n";
         $conn->close();
     }
 }

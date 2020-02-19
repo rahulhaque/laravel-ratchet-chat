@@ -39,7 +39,7 @@
         });
 
         // Websocket
-        let ws = new WebSocket("ws://localhost:8090");
+        let ws = new WebSocket("{{env('RATCHET_HOST')}}:{{env('RATCHET_PORT')}}");
         ws.onopen = function (e) {
             // Connect to websocket
             console.log('Connected to websocket');
@@ -77,6 +77,7 @@
             alert('Check if WebSocket server is running!');
         };
         ws.onmessage = function (e) {
+          console.trace(e);
             let json = JSON.parse(e.data);
             switch (json.type) {
                 case 'chat':
