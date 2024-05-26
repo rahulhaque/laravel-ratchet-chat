@@ -8,7 +8,7 @@
         "php": "^7.1.3",
         "cboden/ratchet": "^0.4.1",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "6.18.*",
+        "laravel/framework": "6.20.*",
         "laravel/tinker": "^1.0"
     },
     "require-dev": {
