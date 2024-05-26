@@ -9,6 +9,7 @@
         "cboden/ratchet": "^0.4.1",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "6.20.*",
+        "laravel/helpers": "^1.7",
         "laravel/tinker": "^1.0"
     },
     "require-dev": {
